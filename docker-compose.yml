@@ -1,0 +1,12 @@
+version: '3'
+services:
+  cms_frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8100:8100"
+    volumes:
+      - ./app:/usr/src/app
+    working_dir: /usr/src/app
+    tty: true
