@@ -9,7 +9,7 @@ frontend:
       commands:
         - if [ "${AWS_BRANCH}" = "main" ]; then export SUFFIX="--prod"; fi
         - if [ "${AWS_BRANCH}" = "dev" ]; then export SUFFIX=""; fi
-        - echo "Building as: ionic build $SUFFIX"
+        - `echo "Building as: ionic build $SUFFIX"`
         - ionic build $SUFFIX
   artifacts:
     baseDirectory: app/umap_cms/www
