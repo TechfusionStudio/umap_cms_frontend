@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -14,5 +15,14 @@ export class AppComponent {
     { title: 'Spam', url: '/folder/spam', icon: 'warning' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+  public showMenu = true; // メニュー表示制御用のプロパティを追加
+  
+  constructor(private router: Router) {
+    // ルート変更イベントを購読して、URLに応じてメニュー表示を制御
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showMenu = !event.url.includes('/login');
+      }
+    });
+  }
 }
