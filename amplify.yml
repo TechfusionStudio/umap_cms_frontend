@@ -1,0 +1,21 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd app/umap_cms
+        - npm install
+    build:
+      commands:
+        - if [ "${AWS_BRANCH}" = "main" ]; then export SUFFIX="--prod"; fi
+        - if [ "${AWS_BRANCH}" = "dev" ]; then export SUFFIX=""; fi
+        - echo "Building as: ionic build $SUFFIX"
+        - ionic build $SUFFIX
+  artifacts:
+    baseDirectory: app/umap_cms/www
+    files:
+      - '**/*'
+    cache:
+      paths:
+        - node_modules/**/*
+      
