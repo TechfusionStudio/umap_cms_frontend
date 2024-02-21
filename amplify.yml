@@ -4,7 +4,7 @@ frontend:
     preBuild:
       commands:
         - cd app/umap_cms
-        - nvm install 18.17.1
+        - nvm install 20.11.1
         - npm install -g npm@9.8.1 @ionic/cli@7.1.1 capacitor@0.5.5
         - npm install
     build:
