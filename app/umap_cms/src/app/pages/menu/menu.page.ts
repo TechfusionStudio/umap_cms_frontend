@@ -11,6 +11,15 @@ import { Router } from '@angular/router';
 export class MenuPage implements OnInit {
   public menu!: string;
   private activatedRoute = inject(ActivatedRoute);
+  public appPages = [
+    { title: 'Inbox', url: '/menu/inbox', icon: 'mail' },
+    { title: 'Outbox', url: '/menu/outbox', icon: 'paper-plane' },
+    { title: 'Favorites', url: '/menu/favorites', icon: 'heart' },
+    { title: 'Archived', url: '/menu/archived', icon: 'archive' },
+    { title: 'Trash', url: '/menu/trash', icon: 'trash' },
+    { title: 'Spam', url: '/menu/spam', icon: 'warning' },
+  ];
+
   constructor(
     private authService: AuthService,
     private router: Router,
