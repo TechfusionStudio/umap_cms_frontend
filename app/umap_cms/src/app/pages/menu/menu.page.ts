@@ -44,7 +44,7 @@ export class MenuPage implements OnInit {
 
     // リクエストボディの作成
     const body = {
-      id: "nakano222322",
+      id: "nakano22232233",
       json_data: {
         position: 12,
         small: "Yes"
