@@ -7,12 +7,12 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
+    { title: 'Inbox', url: '/menu/inbox', icon: 'mail' },
+    { title: 'Outbox', url: '/menu/outbox', icon: 'paper-plane' },
+    { title: 'Favorites', url: '/menu/favorites', icon: 'heart' },
+    { title: 'Archived', url: '/menu/archived', icon: 'archive' },
+    { title: 'Trash', url: '/menu/trash', icon: 'trash' },
+    { title: 'Spam', url: '/menu/spam', icon: 'warning' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   public showMenu = true; // メニュー表示制御用のプロパティを追加
