@@ -46,9 +46,13 @@
 
   <div id="container">
     <strong class="capitalize">{{ menu }}</strong>
-    <div *ngIf="menu === 'inbox'">
+    <div ngSwitch="menu === 'inbox'">
       <!-- button to post http request -->
-      <ion-button expand="full" fill="clear" (click)="postRequest()">Post Request</ion-button>
+      
+    </div>
+    <div [ngSwitch]="menu">
+      <div *ngSwitchCase="'outbox'">Default Content</div>
+      <ion-button *ngSwitchDefault expand="full" fill="clear" (click)="postRequest()">Post Request</ion-button>
     </div>
   </div>
 </ion-content>

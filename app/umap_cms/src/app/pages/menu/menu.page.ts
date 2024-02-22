@@ -1,7 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import {
+  Router,
+  ActivatedRoute,
+} from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 
 import { environment } from 'src/environments/environment';
@@ -42,7 +44,7 @@ export class MenuPage implements OnInit {
 
     // リクエストボディの作成
     const body = {
-      id: "nakano22222",
+      id: "nakano222322",
       json_data: {
         position: 12,
         small: "Yes"
