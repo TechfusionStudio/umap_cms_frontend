@@ -21,7 +21,7 @@ export class AppComponent {
     // ルート変更イベントを購読して、URLに応じてメニュー表示を制御
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.showMenu = !event.url.includes('/login');
+        this.showMenu = !event.url.includes('/login') && !event.url.includes('/signup');
       }
     });
   }

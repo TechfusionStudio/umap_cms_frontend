@@ -1,0 +1,21 @@
+.signup-frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  padding: 20px;
+
+  ion-content {
+    width: 100%;
+    max-width: 400px;
+
+    ion-item {
+      margin-bottom: 20px;
+    }
+
+    ion-button {
+      margin-top: 20px;
+    }
+  }
+}
