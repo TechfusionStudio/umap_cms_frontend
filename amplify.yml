@@ -7,22 +7,24 @@ frontend:
         - nvm install 20.11.1
         - npm install -g npm@9.8.1 @ionic/cli@7.1.1 capacitor@0.5.5
         - npm install
-        - echo "export const environment = {" > src/environments/environment.ts
-        - echo "  production: false," >> src/environments/environment.ts
-        - echo "  cognito: {" >> src/environments/environment.ts
-        - echo "    userPoolId: '$USER_POOL_ID'," >> src/environments/environment.ts
-        - echo "    clientId: '$CLIENT_ID'," >> src/environments/environment.ts
-        - echo "    region: 'ap-northeast-1'" >> src/environments/environment.ts
-        - echo "  }," >> src/environments/environment.ts
-        - echo "};" >> src/environments/environment.ts
-        - echo "export const environment = {" > src/environments/environment.prod.ts
-        - echo "  production: true," >> src/environments/environment.prod.ts
-        - echo "  cognito: {" >> src/environments/environment.prod.ts
-        - echo "    userPoolId: '$USER_POOL_ID'," >> src/environments/environment.prod.ts
-        - echo "    clientId: '$CLIENT_ID'," >> src/environments/environment.prod.ts
-        - echo "    region: 'ap-northeast-1'" >> src/environments/environment.prod.ts
-        - echo "  }," >> src/environments/environment.prod.ts
-        - echo "};" >> src/environments/environment.prod.ts
+        - >
+          echo "export const environment = {
+            production: false,
+            cognito: {
+              userPoolId: '\$USER_POOL_ID',
+              clientId: '\$CLIENT_ID',
+              region: 'ap-northeast-1'
+            },
+          };" > src/environments/environment.ts
+        - >
+          echo "export const environment = {
+            production: true,
+            cognito: {
+              userPoolId: '\$USER_POOL_ID',
+              clientId: '\$CLIENT_ID',
+              region: 'ap-northeast-1'
+            },
+          };" > src/environments/environment.prod.ts
     build:
       commands:
         - if [ "${AWS_BRANCH}" = "main" ]; then export SUFFIX="--prod"; fi
