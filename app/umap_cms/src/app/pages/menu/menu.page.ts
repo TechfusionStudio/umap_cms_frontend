@@ -2,6 +2,9 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { HttpService } from 'src/app/services/http.service';
+
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-menu',
@@ -23,6 +26,7 @@ export class MenuPage implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private httpService: HttpService,
   ) {}
 
   ngOnInit() {
@@ -30,7 +34,33 @@ export class MenuPage implements OnInit {
     this.menu = this.activatedRoute.snapshot.paramMap.get('id') as string;
   }
 
-  logout() {
+  postRequest = () => {
+    // Pythonサーバ側の処理
+    // body = json.loads(event['body'])
+    // id = body['id']
+    // json_data = body['json_data']
+
+    // リクエストボディの作成
+    const body = {
+      id: "nakano22222",
+      json_data: {
+        position: 12,
+        small: "Yes"
+      }
+    };
+
+    // POSTリクエストの送信
+    this.httpService.http(environment.apiEndpoint + "id", body).subscribe(
+      (response) => {
+        console.log('POSTリクエストの送信に成功しました', response);
+      },
+      (error) => {
+        console.error('POSTリクエストの送信に失敗しました', error);
+      }
+    );
+  }
+
+  logout = () => {
     // localStorageに保存された認証情報をクリア
     localStorage.removeItem('idToken');
     localStorage.removeItem('accessToken');
