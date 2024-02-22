@@ -49,7 +49,6 @@ export class AuthService {
     });
   }
 
-  // TODO: Add Refresh Token Process
   signIn(email: string, password: string) {
     const authenticationDetails = new AuthenticationDetails({
         Username: email,
@@ -79,32 +78,42 @@ export class AuthService {
     });
   }
 
-  refreshToken = () => {
-    // ユーザー情報の設定
-    const userData = {
-      Username: localStorage.getItem('email') || '',
-      Pool: this.userPool,
-    };
-    const cognitoUser = new CognitoUser(userData);
-
-    // リフレッシュトークンを使用してセッションを更新
-    cognitoUser.getSession((err: Error | null, session: CognitoUserSession) => {
-      if (err) {
-          console.error(err);
-          this.router.navigate(['/login']);
-          return;
-      }
-
-      const refreshToken = session.getRefreshToken();
-      cognitoUser.refreshSession(refreshToken, (refreshError, refreshSession) => {
-          if (refreshError) {
-              console.error(refreshError);
-          } else {
-              // 新しいアクセストークンとIDトークンがrefreshSessionから取得できる
-              console.log('新しいアクセストークン:', refreshSession.getAccessToken().getJwtToken());
-          }
-      });
-    });
+  checkSession = () => {
+    // check local storage email
+    const email = localStorage.getItem('email');
+    if (!email) {
+      this.router.navigate(['/login']);
+      return;
+    }
   }
+
+  // TODO: Add Refresh Token Process
+  // refreshToken = () => {
+  //   // ユーザー情報の設定
+  //   const userData = {
+  //     Username: localStorage.getItem('email') || '',
+  //     Pool: this.userPool,
+  //   };
+  //   const cognitoUser = new CognitoUser(userData);
+
+  //   // リフレッシュトークンを使用してセッションを更新
+  //   cognitoUser.getSession((err: Error | null, session: CognitoUserSession) => {
+  //     if (err) {
+  //         console.error(err);
+  //         this.router.navigate(['/login']);
+  //         return;
+  //     }
+
+  //     const refreshToken = session.getRefreshToken();
+  //     cognitoUser.refreshSession(refreshToken, (refreshError, refreshSession) => {
+  //         if (refreshError) {
+  //             console.error(refreshError);
+  //         } else {
+  //             // 新しいアクセストークンとIDトークンがrefreshSessionから取得できる
+  //             console.log('新しいアクセストークン:', refreshSession.getAccessToken().getJwtToken());
+  //         }
+  //     });
+  //   });
+  // }
 
 }
