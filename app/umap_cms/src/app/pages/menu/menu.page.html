@@ -46,6 +46,9 @@
 
   <div id="container">
     <strong class="capitalize">{{ menu }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <div *ngIf="menu === 'inbox'">
+      <!-- button to post http request -->
+      <ion-button expand="full" fill="clear" (click)="postRequest()">Post Request</ion-button>
+    </div>
   </div>
 </ion-content>

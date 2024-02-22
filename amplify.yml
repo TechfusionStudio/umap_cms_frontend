@@ -15,6 +15,7 @@ frontend:
               clientId: '${CLIENT_ID}',
               region: 'ap-northeast-1'
             },
+            apiEndpoint: '${API_ENDPOINT}',
           };" > src/environments/environment.prod.ts
         - >
           echo "export const environment = {
@@ -24,6 +25,7 @@ frontend:
               clientId: '${CLIENT_ID}',
               region: 'ap-northeast-1'
             },
+            apiEndpoint: '${API_ENDPOINT}',
           };" > src/environments/environment.ts
     build:
       commands:
