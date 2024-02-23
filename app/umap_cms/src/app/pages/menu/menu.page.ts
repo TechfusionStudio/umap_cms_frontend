@@ -59,61 +59,72 @@ export class MenuPage implements OnInit {
   }
 
   ApiTest = () => {
-    // const path = "items?organization_id=nakano_test"
+    // const path = "recommend_items?organization_id=nakano_test&latitude=35.7241365631318&longitude=139.650478981592&spacious=1&facility=1&equipment=1";
     // const url = environment.apiEndpoint + path;
-    const path = "data_structure"
+    // const path = "data_structure"
+    // const url = environment.apiEndpoint + path;
+    // const path = "question_prime/1"
+    // const url = environment.apiEndpoint + path;
+    // const path = "questions?item_id=1"
+    // const url = environment.apiEndpoint + path;
+    const path = "question_prime/1"
     const url = environment.apiEndpoint + path;
 
     // const body = {
     //   "email": "test@gmail.com",
     //   "organization_id": "nakano_test"
     // }
-    const body = {
-      "organization_id": "nakano_test",
-      "data_attributes": {
-        "公園名": "str",
-        "公園所在地": "str",
-        "公園面積_m2": "float",
-        "主な施設": "str",
-        "主な遊具": "str",
-        "閉鎖管理施設": "str",
-        "トイレ": "str",
-        "その他情報": "str",
-        "備考1": "str",
-        "備考2": "str",
-        "経度": "float",
-        "緯度": "float",
-      },
-      "is_abstract_data": {
-        "公園名": true,
-        "公園所在地": true,
-        "公園面積_m2": true,
-        "主な施設": false,
-        "主な遊具": true,
-        "閉鎖管理施設": false,
-        "トイレ": false,
-        "その他情報": false,
-        "備考1": false,
-        "備考2": false,
-        "経度": false,
-        "緯度": false,
-      }
-    }
-
-    this.httpService.http(url, body).subscribe({
-      next: response => {
-        console.log('POST success:', response)
-      },
-      error: error => console.error('POST error:', error),
-      complete: () => console.log('POST completed.')
-    });
-    // this.httpService.httpGet(url).subscribe({
-    //   next: response => {
-    //     console.log('GET success:', response)
+    // const body = {
+    //   "organization_id": "nakano_test",
+    //   "data_attributes": {
+    //     "公園名": "str",
+    //     "公園所在地": "str",
+    //     "公園面積_m2": "float",
+    //     "主な施設": "str",
+    //     "主な遊具": "str",
+    //     "閉鎖管理施設": "str",
+    //     "トイレ": "str",
+    //     "その他情報": "str",
+    //     "備考1": "str",
+    //     "備考2": "str",
+    //     "経度": "float",
+    //     "緯度": "float",
     //   },
-    //   error: error => console.error('GET error:', error),
-    //   complete: () => console.log('GET completed.')
+    //   "is_abstract_data": {
+    //     "公園名": true,
+    //     "公園所在地": true,
+    //     "公園面積_m2": true,
+    //     "主な施設": false,
+    //     "主な遊具": true,
+    //     "閉鎖管理施設": false,
+    //     "トイレ": false,
+    //     "その他情報": false,
+    //     "備考1": false,
+    //     "備考2": false,
+    //     "経度": false,
+    //     "緯度": false,
+    //   }
+    // }
+    // const body = {
+    //   "question_user": "kawakami",
+    //   "question_title": "フリスビー使えますか？",
+    //   "question_text": "この公園ってフリスビー使えますか？教えてください！",
+    // }
+
+    // this.httpService.http(url, body).subscribe({
+    //   next: response => {
+    //     console.log('POST success:', response)
+    //   },
+    //   error: error => console.error('POST error:', error),
+    //   complete: () => console.log('POST completed.')
     // });
+    this.httpService.httpGet(url).subscribe({
+      next: response => {
+        console.log('GET success:', response)
+      },
+      error: error => console.error('GET error:', error),
+      complete: () => console.log('GET completed.')
+    });
   }
 
   fileChanged = (event: any) => {
