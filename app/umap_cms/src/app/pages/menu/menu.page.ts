@@ -136,7 +136,9 @@ export class MenuPage implements OnInit {
   }
   // ファイルの内容をサーバーに送信するための関数
   uploadCsvFileAsBase64(fileContentBase64: string) {
-    const url = environment.apiEndpoint + "csv"; // API Gateway の URL に置き換えてください
+    // const url = environment.apiEndpoint + "csv"; // API Gateway の URL に置き換えてください
+    const path = "data/" + "nakano_test";
+    const url = environment.apiEndpoint + path; // API Gateway の URL に置き換えてください
     const body = {
       csvData: fileContentBase64 
     };
