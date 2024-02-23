@@ -146,3 +146,17 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+ion-content .uploads {
+  ion-item {
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-end: 0;
+
+    input[type="file"] {
+      width: 100%;
+      margin: 0;
+      padding: 15px;
+    }
+  }
+}

@@ -52,7 +52,17 @@
     </div>
     <div [ngSwitch]="menu">
       <div *ngSwitchCase="'outbox'">Default Content</div>
-      <ion-button *ngSwitchDefault expand="full" fill="clear" (click)="postRequest()">Post Request</ion-button>
+      <div *ngSwitchDefault>
+        <ion-button *ngSwitchDefault expand="full" fill="clear" (click)="postRequest()">Post Request</ion-button>
+        <ion-button *ngSwitchDefault expand="full" fill="clear" (click)="ApiTest()">Api Test</ion-button>
+
+        <ion-item class="uploads">
+          <ion-label position="stacked">CSV File</ion-label>
+          <input type="file" (change)="fileChanged($event)" accept=".csv">
+        </ion-item>
+      
+        <ion-button class="uploads" expand="block" (click)="uploadFile()">Upload</ion-button>
+      </div>
     </div>
   </div>
 </ion-content>
