@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" class="ion-padding">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>質問詳細</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ question.question_title }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ question.question_text }}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let answer of answers">
+      <ion-label>{{ answer.answer_text }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- プロンプトのカスタマイズ用入力欄を追加 -->
+  <ion-item>
+    <ion-label position="floating">通知文の形式への要望</ion-label>
+    <ion-textarea [(ngModel)]="customPrompt"></ion-textarea>
+  </ion-item>
+
+  <ion-button (click)="generateNotificationText()">通知文生成</ion-button>
+  <!-- 生成された通知文の表示 -->
+  <ion-item>
+    <ion-label position="floating">生成された通知文</ion-label>
+    <ion-textarea [(ngModel)]="notificationText"></ion-textarea>
+    <ion-button slot="end" size="small" (click)="copyNotificationText()">文章コピー</ion-button>
+  </ion-item>
+
+  <!-- URLの表示とコピー機能 -->
+  <ion-item>
+    <ion-label position="floating">生成されたURL</ion-label>
+    <ion-input [(ngModel)]="generatedUrl" readonly></ion-input>
+    <ion-button slot="end" size="small" (click)="copyUrl()">URLコピー</ion-button>
+  </ion-item>
+
+  <ion-button (click)="analyzeEmotion()">生成された通知文の感情分析</ion-button>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>感情分析結果</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="emotionScores">
+        <p *ngFor="let score of emotionScores">{{ score.label }}: {{ score.value }}</p>
+      </div>
+      <div *ngIf="emotionScores.length == 0">
+        <p>未測定...</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>質問一覧</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-list lines="full" class="ion-padding">
+  <ion-item *ngFor="let question of questions" (click)="navigateToQuestion(question.question_id)" detail="true">
+    <ion-icon name="help-circle" slot="start"></ion-icon>
+    <ion-label class="ion-text-wrap">
+      <h2>{{ question.question_id }}: {{ question.question_title }}</h2>
+    </ion-label>
+    <!-- <ion-icon name="arrow-forward" slot="end"></ion-icon> -->
+  </ion-item>
+</ion-list>

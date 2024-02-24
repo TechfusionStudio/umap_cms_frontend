@@ -6,4 +6,6 @@ export const environment = {
     region: 'YOUR_REGION'
   },
   apiEndpoint: 'API_ENDPOINT',
+  userSiteUrl: "USER_SITE_URL",
+  chatGptApiKey: "CHAT_GPT_API_KEY",
 };

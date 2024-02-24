@@ -7,11 +7,14 @@ import { LoginFrameComponent } from './auth/login-frame/login-frame.component';
 import { SignupFrameComponent } from './auth/signup-frame/signup-frame.component';
 import { SignupConfirmFrameComponent } from './auth/signup-confirm-frame/signup-confirm-frame.component';
 
+import { QuestionsComponent } from './menu/questions/questions.component';
+
 @NgModule({
   declarations: [
     LoginFrameComponent,
     SignupFrameComponent,
     SignupConfirmFrameComponent,
+    QuestionsComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +25,7 @@ import { SignupConfirmFrameComponent } from './auth/signup-confirm-frame/signup-
     LoginFrameComponent,
     SignupFrameComponent,
     SignupConfirmFrameComponent,
+    QuestionsComponent,
   ]
 })
 export class ComponentsModule { }

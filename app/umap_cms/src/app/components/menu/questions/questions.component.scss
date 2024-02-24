@@ -1,0 +1,45 @@
+ion-header {
+  // margin-top: 140px;
+  --background: #3880ff;
+  // --color: white;
+  width: 80%;
+  margin: 700px auto 0 auto;
+}
+
+// ion-toolbar {
+  // --background: #3880ff;
+  // --color: white;
+// }
+
+ion-list {
+  margin-top: 20px;
+  // background: #f0f0f5;
+  width: 80%;
+  margin: 0 auto;
+}
+
+ion-item {
+  // --background: #ffffff;
+  // --padding-start: 20px;
+  --padding-end: 20px;
+  --inner-padding-end: 20px;
+  // --min-height: 60px; /* 高さを少し増やす */
+  --border-radius: 8px; /* 角を丸くする */
+  // margin-bottom: 10px; /* アイテム間の距離 */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* 影を追加 */
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  }
+}
+
+ion-icon {
+  --color: #3880ff;
+}
+
+ion-label h2 {
+  font-weight: bold;
+}

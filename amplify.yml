@@ -16,6 +16,8 @@ frontend:
               region: 'ap-northeast-1'
             },
             apiEndpoint: '${API_ENDPOINT}',
+            userSiteUrl: '${USER_SITE_URL}',
+            chatGptApiKey: '${CHAT_GPT_API_KEY}',
           };" > src/environments/environment.prod.ts
         - >
           echo "export const environment = {
@@ -26,6 +28,8 @@ frontend:
               region: 'ap-northeast-1'
             },
             apiEndpoint: '${API_ENDPOINT}',
+            userSiteUrl: '${USER_SITE_URL}',
+            chatGptApiKey: '${CHAT_GPT_API_KEY}',
           };" > src/environments/environment.ts
     build:
       commands:

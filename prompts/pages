@@ -1,0 +1,473 @@
+次の発表原稿に示されるアプリケーションを開発します．
+＝＝＝
+## 自己紹介
+
+チーム『熊本ブロードウェイ』です．私たちは中野区の『公園情報のデジタル化』というテーマに対して取り組みます．
+
+## 背景
+
+中野区は出生率が非常に低い地域です（0.93）．
+
+また，子供を育てていく上では狭いため，子供が幼児期になると杉並区とか練馬区，市部の方に引っ越してしまいます．
+
+現在，中野区では実際に，
+
+- 子供を連れていく場所がよくわからない
+- **ボール**などを使わせて，苦情が来たりしないかわからない
+- **遊具の情報**が行ってみないとわからない
+- 大きい子が利用しているなど，うちの子供が**危なくないか**知りたい
+
+のような『公園情報不足』に関する声が保護者から寄せられています．
+
+このような状況のもとで，住環境は一朝一夕で良くはならないが，中野区役所は**子育て環境はよくしたい**と考えています．
+
+## 課題
+
+今回，中野区役所の方にヒアリングを実施したところ，公園情報不足に関する3つの課題の仮説を抱えていることが判明しました．
+
+1. 保護者はそれぞれの公園で自分の子供ができる遊び，それぞれの公園の安全性が**わからないこと**
+2. 前述の親目線の課題解決に役立つオープンデータが行政で未整備かつ，公園情報不足の課題解決に必要不可欠なオープンデータ外の公園情報を公園を利用する保護者しか保持していないこと
+3. 区役所に対して，保護者がその**公園情報を提供する積極的な動機**が存在しないこと．（ここがないと**実現可能性**が低くなることを超強調！）
+
+つまり，保護者からすると遊び，安全性の面で自分の子供に適した公園がわからずに中野区の公園の価値が伝わりづらいです．また，行政は中野区の公園の価値を届けたいですが，情報が未整備でかつ，重要な情報を提供する基盤を持っていません．（三角形の関係図が書けそう：行政・情報を持たない保護者・情報を持つ保護者）
+
+## 解決策の概要
+
+そこで私たちは，3→2→1の順番に，情報提供の動線を整備（３）し，公園利用者保有情報と整備済みオープンデータを統合し（２），子育て世帯に情報を提供すること（１）で，課題を紐解くソリューションを提供します．
+
+## 解決策の詳細（時間がないので，一緒にデモンストレーションをみせる）
+
+そのソリューションは，オープンデータの公園情報を一元管理，また個人が持つ情報をQ&Aベースで収集・統合可能にした公園情報アプリケーション『遊まっぷ』，行政向けCMSです．
+＝＝＝
+
+また，次のようなアプリ上のユーザインタランクション設計を行いました．
+＝＝＝
+## 利用者
+
+中野区，中野区近辺に住む子供を持つ保護者
+
+## 利用者がアプリケーションによって達成すること
+
+- 利用者は遊びやすさや安全性の観点から，自分の子供のための最適な公園の場所がすぐにわかる．
+- 公園に関して未記載のわからない情報があれば，質問できる．
+- 公園情報不足で困っている人がいたら回答できる．
+
+## 利用者のインタラクション設計
+
+### 通常の利用者
+
+1. ユーザはアプリを起動する．
+2. ユーザ情報が未登録であれば，ユーザはユーザ情報登録画面に到達します．
+3. ユーザ情報登録画面ではユーザニックネームと子供の年代を登録します．
+    1. 年代は「乳児」「幼児」「小学1，2年生」「小学3年生以上」
+    2. 緯度経度も使うが，処理中で取得する
+4. ユーザ情報が登録済みのユーザはホーム画面に到達します．（ここからGoogle Map APIを使用）
+5. マップと近くの公園の場所のピンが表示されます．
+6. フィルタリングiconを押すことで，知識ベース推薦システムによる公園検索します．
+    1. フィルタリング時の情報は利用者情報と紐付けて，dynamodb行き（時間と緯度経度付き）
+    2. 項目
+        1. ボールで遊べる
+        2. 利用する子供の年代が同じ
+        3. 日当たりの良さ
+        4. 治安がいい
+7. マップに距離に関係なく，絞り込まれた公園のピンが表示されます．
+8. 適切な公園を見つけると，その公園の詳細情報を閲覧します．
+    1. タップ時の情報は利用者情報と紐付けて，dynamodb行き（時間と緯度経度付き）
+9. 情報が足りていれば，利用者は満足します．
+10. 情報が不足していれば，質問を行います．
+11. メールの回答がついた際に通知が欲しければ，利用者はメールアドレスを登録します．
+12. メールの通知設定をしていた場合には，回答を受けたとき，利用者はメールを受け取れます．
+13. 回答を閲覧できます．
+
+### 質問への回答者
+
+1. アプリあるいは中野区からの通知経由で質問を認知します．
+2. 回答ができます．
+3. 質問者の追加コメントがついた際に通知が欲しければメールアドレスを登録します．
+＝＝＝
+
+これから次の2つのページについて，ionicとangularで開発を行います．
+
+===
+- menu/questions
+    1. 質問一覧を取得できる．
+    2. 個別の質問を選ぶと質問詳細画面に行ける
+- question/:question_id
+    1. メールに記載する質問通知のための記載文章を生成でき，その際，chatgptのAPIを使用できる．ページ内には入力欄があり，プロンプトに注文を追記できる．
+    2. その際，文章の感情スコア分析APIを使用し，分析補助機能も使用できる．
+    3. 文章と遷移URLをコピーできる．
+===
+
+次のAPIを使用可能です．
+===
+- ✅[POST]/account
+    
+    **description**
+    
+    記録されていなかった場合，ORGANIZATIONSに対して，id（organization_id）を登録．
+    
+    記録されていなかった場合，USERSに対して，email，organization_idを登録．
+    
+    **post request**
+    
+    ```json
+    {
+    	"email": "ID",
+    	"organization_id": "organization_id"
+    }
+    ```
+    
+    **response(success)**
+    
+    ```json
+    {
+    	"status": 200,
+    	"email_exist": 1,  # すでに存在していた場合：1，新たに記録した場合：0
+      "organization_exist": 1,  # すでに存在していた場合：1，新たに記録した場合：0
+    	"message": ""
+    }
+    ```
+    
+- ✅[GET]/items
+    
+    **description**
+    
+    ITEMSに対して，指定するorganization_idを持つものが存在しているか確認する．
+    
+    **request params**
+    
+    ```
+    ?organization_id=ID
+    ```
+    
+    **response(success)**
+    
+    ```json
+    {
+    	"status": 200,
+    	"items_exist": 1,  # すでに存在していた場合：1，その他の場合：0
+    	"message": ""
+    }
+    ```
+    
+- ✅[POST]/data_structure
+    
+    **description**
+    
+    ORGANIZATIONSに対して，data_attributes，is_abstract_dataを更新．
+    
+    **post request**
+    
+    ```json
+    {
+    	"organization_id": "organization_id",
+    	"data_attributes": {
+    		"column_name": "column_attribute",
+    		...
+    	},
+    	"is_abstrsct_data": {
+    		"column_name": boolean,
+    		...
+    	},
+    }
+    ```
+    
+    **response(success)**
+    
+    ```json
+    {
+    	"status": 200,
+    	"message": "記録に成功しました．."
+    }
+    ```
+    
+- ✅[POST]/data/{organization_id}
+    
+    **description**
+    
+    CSVファイルをDataFrameに変換
+    
+    ORGANIZATIONSに対して，data_attributesを取得．
+    
+    DataFrameにおいて，data_attributesのkeyに存在するカラム名のみを読み込み，data_attributesのvalueのtypeに変換する．
+    
+    その後，行ごとに，ITEMSのdata_valuesに
+    
+    ```
+    {
+    	"column_name": value,
+    	...
+    }
+    ```
+    
+    の形式で全行のデータを登録する．このとき，外部キーとして，pathパラメータのorganization_idも一緒に登録する．
+    
+    **post body: csv data（multipart/form-data）**
+    
+    ```tsx
+      // ファイルの内容をサーバーに送信するための関数
+      uploadCsvFileAsBase64(fileContentBase64: string) {
+        const url = environment.apiEndpoint + "csv"; // API Gateway の URL に置き換えてください
+        const body = {
+          csvData: fileContentBase64 
+        };
+        // console.log(fileContentBase64);
+    
+        this.httpService.http(url, body).subscribe({
+          next: response => {
+            console.log('Upload success:', response)
+          },
+          error: error => console.error('Upload error:', error),
+          complete: () => console.log('Upload completed.')
+        });
+    ```
+    
+    **intermediate process**
+    
+    ```python
+    import base64
+    import pandas as pd
+    from io import StringIO
+    import json
+    
+    def handler(event, context):
+        # JSON ペイロードから Base64 エンコードされた CSV データの文字列を取得
+        base64_csv_string = json.loads(event['body'])['csvData']
+        
+        # Base64 エンコードされた文字列をデコードして CSV データを取得
+        csv_string = base64.b64decode(base64_csv_string).decode('utf-8')
+        
+        # 文字列から pandas DataFrame を作成
+        csv_data = pd.read_csv(StringIO(csv_string))
+        
+        # DataFrame の内容を処理（例：単に出力する）
+        print(csv_data)
+    		...
+    ```
+    
+    **data_attribute structure**
+    
+    ```json
+    {
+      "data_attribute": {
+        "公園名": "str",
+        "公園所在地": "str",
+        "公園面積_m2": "float",
+        "主な施設": "str",
+        "主な遊具": "str",
+        "閉鎖管理施設": "str",
+        "トイレ": "str",
+        "その他情報": "str",
+        "備考1": "str",
+        "備考2": "str",
+        "経度": "float",
+        "緯度": "float",
+      }
+    }
+    ```
+    
+    **response(success)**
+    
+    ```json
+    {
+    	"status": 200,
+    	"message": "記録に成功しました．."
+    }
+    ```
+    
+- ✅[GET]/near_items
+    
+    **description**
+    
+    パラメータから与えられたorganization_idに基づいて，ITEMSから対応するデータ群を取り出す．
+    
+    取り出したデータ群において，緯度経度に基づいて，カラムdata_valuesのkeyが緯度軽度のパラメータ（それぞれ，”緯度”，”経度”で保存されている）に対して，距離が近い5アイテムのみを取り出す．
+    
+    SQL内で距離探索が完結するのであれば，その実装方針をとる．
+    
+    5アイテムのdata_values，is_abstruct_data，ORGANIZATIONSのis_abstruct_dataを返す．（それぞれJSON形式を持つ）．
+    
+    **request params**
+    
+    ```
+    ?organization_id=ORGANIZATION_ID&latitude=LATITUDE&longitude=LONGITUDE
+    ```
+    
+    **response(success)**
+    
+    ```json
+    {
+    	"status": 200,
+    	"items": [
+    		[
+    			"data_values": data_values,
+    			"is_abstruct_data": is_abstruct_data
+    		],
+    		...
+    	],
+    	"organization_is_abstruct_data": organization_is_abstruct_data,
+    	"message": "記録に成功しました．."
+    }
+    ```
+    
+- ✅[GET]/recomend_items
+    
+    **description**
+    
+    パラメータから与えられたorganization_idや推薦条件に基づいて，ITEMSから対応するデータ群を取り出す．
+    
+    `spacious=1&facility=1&equipment=1` はそれぞれ，広いこと，施設が充実していること，遊具が充実していることを条件づける場合に1，条件づけない場合に0を示す．
+    
+    organization_idに当てはまるITEMSのレコードにおいて，広いことはdata_attributesのkey: 公園面積_m2のvalueが平均より大きいこと，施設が充実していることはdata_attributesのkey: 主な施設のvalueが10文字以上であること，遊具が充実していることはdata_attributesのkey: 主な遊具のvalueが10文字以上であることを指す．
+    
+    取り出したデータ群において，6つ以上存在する場合，緯度経度に基づいて，カラムdata_valuesのkeyが緯度軽度のパラメータ（それぞれ，”緯度”，”経度”で保存されている）に対して，距離が近い5アイテムのみを取り出す．
+    
+    SQL内で距離探索が完結するのであれば，その実装方針をとる．
+    
+    5アイテムまでのdata_values，is_abstruct_data，ORGANIZATIONSのis_abstruct_dataを返す．（それぞれJSON形式を持つ）．
+    
+    **request params**
+    
+    ```
+    ?organization_id=ORGANIZATION_ID&latitude=LATITUDE&longitude=LONGITUDE&spacious=1&facility=1&equipment=1
+    ```
+    
+    **response(success)**
+    
+    ```json
+    {
+    	"status": 200,
+    	"items": [
+    		[
+    			"data_values": data_values,
+    			"is_abstruct_data": is_abstruct_data
+    		],
+    		...
+    	],
+    	"organization_is_abstruct_data": organization_is_abstruct_data,
+    	"message": "記録に成功しました．."
+    }
+    ```
+    
+- ✅[POST]/question/{id}（/question_prime/{id}）
+    
+    **description**
+    
+    QUESTIONSに対して，item_id，question_user（name），question_title，question_textを保存する．
+    
+    **post request**
+    
+    ```json
+    {
+    	"question_user": "QUESTION_USER",
+    	"question_title": "QUESTION_TITLE",
+    	"question_text": "QUESTION_TEXT"
+    }
+    ```
+    
+    **response(success)**
+    
+    ```json
+    {
+    	"status": 200,
+    	"message": ""
+    }
+    ```
+    
+- ✅[GET]/questions
+    
+    **description**
+    
+    QUESTIONSに対して，指定するitem_idを持つもののid（question_id），question_titleを取得する．
+    
+    **request params**
+    
+    ```
+    ?item_id=ITEM_ID
+    ```
+    
+    **response(success)**
+    
+    ```json
+    {
+    	"status": 200,
+    	"questions": [
+    		{
+    			"question_id": ID,
+    			"question_title": "QUESTION_TITLE",
+    		},
+    		...
+    	],
+    	"message": ""
+    }
+    ```
+- ✅[GET]/question/{id}（/question_prime/{id}）
+    
+    **description**
+    
+    QUESTIONS，ANSWERSに対して，指定するquestion_idを持つもののquestion_title, question_text，id(answer_id)，answer_textを取得する．
+    
+    **request params**
+    
+    ```
+    
+    ```
+    
+    **response(success)**
+    
+    ```json
+    {
+    	"status": 200,
+    	"question_title": "QUESTION_TITLE",
+    	"question_text": "QUESTION_TEXT",
+    	"answers": [
+    		{
+    			"answer_id": ID,
+    			"ansewer_title": "ANSWER_TITLE",
+    		},
+    		...
+    	],
+    	"message": ""
+    }
+    ```
+    
+- [GET]/multi_emotion
+    
+    **description**
+    
+    文章を送信し，多クラス感情分類結果を受け取る
+    
+    **request params**
+    
+    ```
+    ?message=MESSAGE
+    ```
+    
+    **response(success)**
+    
+    ```json
+    {
+    	"status": 200,
+    	"emotions": {
+    	  'joy': 0.005331292435993417,
+    	  'sadness': 0.28751617428412735,
+    	  'anticipation': 0.01266092558048564,
+    	  'surprise': 0.018659087140092415,
+    	   'anger': 0.01702935399461363,
+    	  'fear': 0.7004051278930683,
+    	  'disgust': 0.14156438154587764,
+    	  'trust': 0.005130605073044438
+    	},
+    	"message": ""
+    }
+    ```
+===
+
+まずは，
+``
+ページについて開発してください．
+
+Let's think, step by step.
+応援しています！限界以上に頑張ってくださいね！！！
+
+ただし，`.page.html`，`.page.scss`，`.page.ts`の3つについて，完全に示すことに注意してください．
